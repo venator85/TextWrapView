@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<attr name="text" format="string" />
+	<attr name="textSize" format="dimension" />
+	<attr name="textColor" format="color" />
+	<attr name="textStyle">
+		<flag name="normal" value="0" />
+		<flag name="bold" value="1" />
+		<flag name="italic" value="2" />
+	</attr>
+	<attr name="typeface">
+		<flag name="normal" value="0" />
+		<flag name="sans" value="1" />
+		<flag name="serif" value="2" />
+		<flag name="monospace" value="3" />
+	</attr>
+	
+	<declare-styleable name="TextWrapView">
+		<attr name="text" />
+		<attr name="textSize" />
+		<attr name="textColor" />
+		<attr name="textStyle" />
+		<attr name="typeface" />
+		<attr name="maxLines" format="integer" />
+	</declare-styleable>
+	
+	<declare-styleable name="ImageTextWrapView">
+		<attr name="title" format="string" />
+		<attr name="titleSize" format="dimension" />
+		<attr name="titleColor" format="color" />
+		<attr name="titleStyle">
+			<flag name="normal" value="0" />
+			<flag name="bold" value="1" />
+			<flag name="italic" value="2" />
+		</attr>
+
+		<attr name="text" />
+		<attr name="textSize" />
+		<attr name="textColor" />
+		<attr name="textStyle" />
+		<attr name="textMaxLines" format="integer" />
+
+		<attr name="titleTextPadding" format="dimension" />
+		<attr name="imagePadding" format="dimension" />
+
+		<attr name="imgSizeMode">
+			<flag name="lines" value="0" />
+			<flag name="exact" value="1" />
+		</attr>		
+		<attr name="imgWidth" format="dimension" />
+		<attr name="imgHeight" format="dimension" />
+		<attr name="imgSizeInLines" format="integer" />
+
+		<attr name="img" format="reference" />
+	</declare-styleable>
+</resources>

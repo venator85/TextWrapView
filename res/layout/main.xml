@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:twv="http://schemas.android.com/apk/res/cx.ath.venator.textwrapview"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff">
+	
+	<cx.ath.venator.textwrapview.ImageTextWrapView
+		android:id="@+id/imagetextwrapview1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#eeeeee"
+	    android:padding="6dp"
+	    twv:title="@string/title1"
+	    twv:titleStyle="bold"
+	    twv:titleColor="#0000ff"
+		twv:text="@string/text1"
+		twv:img="@drawable/imgh"
+		twv:textMaxLines="4"
+		twv:imgSizeMode="lines"
+		twv:imgSizeInLines="4"
+    />
+    
+    <cx.ath.venator.textwrapview.ImageTextWrapView
+		android:id="@+id/imagetextwrapview2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#dddddd"
+	    android:padding="6dp"
+	    twv:title="@string/title2"
+	    twv:titleStyle="bold"
+	    twv:titleColor="#0000ff"
+		twv:text="@string/text1"
+		twv:img="@drawable/imgh"
+		twv:textMaxLines="4"
+		twv:imgSizeMode="exact"
+		twv:imgWidth="55dp"
+		twv:imgHeight="55dp"
+    />
+    
+    <cx.ath.venator.textwrapview.TextWrapView
+    	android:id="@+id/textwrapview"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="3dip"
+		android:background="#cccccc"
+		twv:text="@string/text2"
+		twv:maxLines="3"
+	/> 
+</LinearLayout>

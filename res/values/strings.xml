@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">TextWrapView</string>
+	<string name="title1">ImageTextWrapView, size of the image is 4 lines</string>
+	<string name="title2">ImageTextWrapView, size of the image is 50x50 dp</string>
+	<string name="text1">Lorem ipsum dolor sit amet, consectetur adipiscing
+		elit. Vivamus turpis libero, fringilla at ultrices ut, porttitor ut
+		tellus. Donec et mauris sed erat vulputate mollis. Praesent et purus
+		sem, non dapibus lectus. Nam sit amet elementum odio. Aenean sem
+		dolor, auctor vitae feugiat quis, faucibus quis diam. Aenean pharetra
+		vestibulum ante quis posuere. Donec semper sem at ante luctus
+		lobortis. Nulla tincidunt rhoncus ultrices. Praesent et mauris arcu.
+		Vestibulum a eros eu eros fringilla commodo. Quisque nec nibh purus,
+		molestie ultricies mauris. Nunc malesuada, dui sit amet suscipit
+		tincidunt, erat tortor egestas nisi, eget semper lorem sem eget lorem.
+		Nunc a ligula nisi, non vehicula enim. Donec ligula quam, laoreet
+		pulvinar fringilla non, viverra eu tellus. Suspendisse enim nisi,
+		congue at rutrum nec, porta in enim. Etiam a luctus urna.</string>
+	<string name="text2">TextWrapView, just 3 lines of wrapped and ellipsed text.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus turpis
+		libero, fringilla at ultrices ut, porttitor ut tellus.
+		Donec et mauris sed erat vulputate mollis. Praesent et purus
+		sem, non dapibus lectus. Nam sit amet elementum odio. Aenean sem
+		dolor, auctor vitae feugiat quis, faucibus quis diam. Aenean pharetra
+		vestibulum ante quis posuere. Donec semper sem at ante luctus
+		lobortis. Nulla tincidunt rhoncus ultrices. Praesent et mauris arcu.
+		Vestibulum a eros eu eros fringilla commodo. Quisque nec nibh purus,
+		molestie ultricies mauris. Nunc malesuada, dui sit amet suscipit
+		tincidunt, erat tortor egestas nisi, eget semper lorem sem eget lorem.
+		Nunc a ligula nisi, non vehicula enim. Donec ligula quam, laoreet
+		pulvinar fringilla non, viverra eu tellus. Suspendisse enim nisi,
+		congue at rutrum nec, porta in enim. Etiam a luctus urna.</string>
+</resources>
