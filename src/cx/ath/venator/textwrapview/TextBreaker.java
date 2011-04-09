@@ -63,17 +63,23 @@ public class TextBreaker {
 			return maxWidth;
 	}
 
-	public void breakText(String input, TextPaint tp) {
+	public float breakText(String input, TextPaint tp) {
 		mLines = new ArrayList<String>();
-		if (input == null) return;
+		if (input == null) return 0;
 		StringTokenizer st = new StringTokenizer(input, "\n");
+		float maxWidth = 0;
 		while (st.hasMoreTokens()) {
 			int moreLines = maxLines - mLines.size();
 			if (moreLines == 0)
 				break;
 			String line = st.nextToken();
-			mLines.addAll(breakLine(line, tp));
+			List<String> brokenLine = breakLine(line, tp);
+            for (String l : brokenLine) {
+                maxWidth = Math.max(tp.measureText(l), maxWidth);
+            }
+			mLines.addAll(brokenLine);
 		}
+		return maxWidth;
 	}
 
 	private List<String> breakLine(String input, TextPaint tp) {

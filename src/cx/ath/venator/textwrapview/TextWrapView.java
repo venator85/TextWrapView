@@ -172,11 +172,8 @@ public class TextWrapView extends View {
 	
 	private int breakWidth(int availableWidth) {
 		int maxW = availableWidth - getPaddingLeft() - getPaddingRight();
-		
 		textBreaker.setMaxWidthLines(maxW, maxLines);
-		textBreaker.breakText(text, textPaint);
-
-		return availableWidth;
+		return (int) Math.ceil(textBreaker.breakText(text, textPaint)) + getPaddingLeft() + getPaddingRight();
 	}
 	
 	@Override

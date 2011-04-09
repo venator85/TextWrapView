@@ -3,8 +3,7 @@
 	xmlns:twv="http://schemas.android.com/apk/res/cx.ath.venator.textwrapview"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#ffffff">
+    android:layout_height="fill_parent">
 	
 	<cx.ath.venator.textwrapview.ImageTextWrapView
 		android:id="@+id/imagetextwrapview1"
@@ -47,5 +46,15 @@
 		android:background="#cccccc"
 		twv:text="@string/text2"
 		twv:maxLines="3"
-	/> 
+	/>
+	
+	<cx.ath.venator.textwrapview.TextWrapView
+    	android:id="@+id/textwrapview2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="12dip"
+		android:background="#bbbbbb"
+		twv:text="@string/text3"
+		twv:maxLines="3"
+	/>
 </LinearLayout>

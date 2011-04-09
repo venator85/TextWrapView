@@ -2,7 +2,7 @@
 <resources>
 	<string name="app_name">TextWrapView</string>
 	<string name="title1">ImageTextWrapView, size of the image is 4 lines</string>
-	<string name="title2">ImageTextWrapView, size of the image is 50x50 dp</string>
+	<string name="title2">ImageTextWrapView, size of the image is 55x55 dp</string>
 	<string name="text1">Lorem ipsum dolor sit amet, consectetur adipiscing
 		elit. Vivamus turpis libero, fringilla at ultrices ut, porttitor ut
 		tellus. Donec et mauris sed erat vulputate mollis. Praesent et purus
@@ -30,4 +30,5 @@
 		Nunc a ligula nisi, non vehicula enim. Donec ligula quam, laoreet
 		pulvinar fringilla non, viverra eu tellus. Suspendisse enim nisi,
 		congue at rutrum nec, porta in enim. Etiam a luctus urna.</string>
+	<string name="text3">TextWrapView, wrap_content</string>
 </resources>
