@@ -11,11 +11,9 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 
 package cx.ath.venator.textwrapview;
-
-import cx.ath.venator.textwrapview.R;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,41 +31,47 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Provides an ImageView + TextView-like control which allows us to show an image,
- * a title at its right and a text flowing below it. The image size can be expressed
- * in term of title+text lines or as an exact dimension. The bitmap is center-cropped
- * by the BitmapCropper class. The text length is expressed in term of lines and it
- * is ellipsized.
+ * Provides an ImageView + TextView-like control which allows us to show an
+ * image, a title at its right and a text flowing below it. The image size can
+ * be expressed in term of title+text lines or as an exact dimension. The bitmap
+ * is center-cropped by the BitmapCropper class. The text length is expressed in
+ * term of lines and it is ellipsized.
  * 
  * The basis for this widget is taken from the android custom widget doc:
- *    http://developer.android.com/guide/samples/ApiDemos/src/com/example/android/apis/view/LabelView.html
+ * http://
+ * developer.android.com/guide/samples/ApiDemos/src/com/example/android/apis
+ * /view/LabelView.html
  * 
  * @author Alessio Bianchi (venator85)
  */
 public class ImageTextWrapView extends View {
 	private int titleTextPadding = 5;
 	private int imagePadding = 5;
-	
+
 	private TextPaint titlePaint;
 	private TextPaint textPaint;
-	
+
 	private String title;
 	private TextBreaker titleBreaker;
 
 	private String text;
 	private int textMaxLines = -1;
 	private TextBreaker textBreaker;
-	
+
 	private Bitmap bitmap, croppedBitmap;
 	private int imgWidthInPixel = -1;
 	private int imgHeightInPixel = -1;
 	private int imgSizeInLines = -1;
 	private int tabbedTextLines = 0;
 	private int tabbedTitleLines;
-	
+
 	private Object tag;
 	private int imgSizeMode;
-	
+
+	private void clearCache() {
+		setDrawingCacheEnabled(false);
+	}
+
 	public ImageTextWrapView(Context context) {
 		super(context);
 		init();
@@ -82,69 +86,75 @@ public class ImageTextWrapView extends View {
 		titlePaint.setTextSize(14);
 		titlePaint.setColor(0xff0000ff);
 		titlePaint.setTextAlign(Align.LEFT);
-//		titlePaint.setTypeface(Typeface.DEFAULT_BOLD);
-		
+
 		textPaint = new TextPaint();
 		textPaint.setAntiAlias(true);
 		textPaint.setTextSize(14);
 		textPaint.setColor(0xff000000);
 		textPaint.setTextAlign(Align.LEFT);
 	}
-	
+
 	public ImageTextWrapView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init();
 		final float scale = getContext().getResources().getDisplayMetrics().density;
 		int defaultFontSize = (int) (14 * scale);
-		
+
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ImageTextWrapView);
-		
+
 		String s;
 		s = a.getString(R.styleable.ImageTextWrapView_title);
-		if (s != null) setTitle(s);
+		if (s != null)
+			setTitle(s);
 		setTitleSize(a.getDimensionPixelSize(R.styleable.ImageTextWrapView_titleSize, defaultFontSize));
 		setTitleColor(a.getInt(R.styleable.ImageTextWrapView_titleColor, 0xff000000));
 		setTitleStyle(a.getInt(R.styleable.ImageTextWrapView_titleStyle, 0));
-		
+
 		s = a.getString(R.styleable.ImageTextWrapView_text);
-		if (s != null) setText(s);
+		if (s != null)
+			setText(s);
 		setTextSize(a.getDimensionPixelSize(R.styleable.ImageTextWrapView_textSize, defaultFontSize));
 		setTextColor(a.getInt(R.styleable.ImageTextWrapView_textColor, 0xff000000));
 		setTextStyle(a.getInt(R.styleable.ImageTextWrapView_textStyle, 0));
 		setTextMaxLines(a.getInt(R.styleable.ImageTextWrapView_textMaxLines, 2));
-		
+
 		titleTextPadding = a.getInt(R.styleable.ImageTextWrapView_titleTextPadding, 5);
 		imagePadding = a.getInt(R.styleable.ImageTextWrapView_imagePadding, 5);
-		
+
 		int v;
 		imgSizeMode = a.getInt(R.styleable.ImageTextWrapView_imgSizeMode, 0);
 		if (imgSizeMode == 0) {
 			v = a.getInt(R.styleable.ImageTextWrapView_imgSizeInLines, -1);
-			if (v != -1) setImgSizeInLines(v);
+			if (v != -1)
+				setImgSizeInLines(v);
 		} else if (imgSizeMode == 1) {
 			v = a.getDimensionPixelSize(R.styleable.ImageTextWrapView_imgWidth, -1);
-			if (v != -1) setImgWidth(v);
+			if (v != -1)
+				setImgWidth(v);
 			v = a.getDimensionPixelSize(R.styleable.ImageTextWrapView_imgHeight, -1);
-			if (v != -1) setImgHeight(v);
+			if (v != -1)
+				setImgHeight(v);
 		}
-		
+
 		v = a.getResourceId(R.styleable.ImageTextWrapView_img, -1);
-		if (v != -1) setBitmap(v);
+		if (v != -1)
+			setBitmap(v);
 
 		a.recycle();
 	}
-	
+
 	public int getImgHeight() {
 		return imgHeightInPixel;
 	}
-	
+
 	public int getImgWidth() {
 		return imgWidthInPixel;
 	}
-	
+
 	public void setImgHeight(int imgHeight) {
 		this.imgHeightInPixel = imgHeight;
 		this.imgSizeInLines = -1;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
@@ -152,104 +162,121 @@ public class ImageTextWrapView extends View {
 	public void setImgWidth(int imgWidth) {
 		this.imgWidthInPixel = imgWidth;
 		this.imgSizeInLines = -1;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
-	
+
 	public void setImgSizeInLines(int lines) {
 		this.imgSizeInLines = lines;
 		this.imgHeightInPixel = -1;
 		this.imgWidthInPixel = -1;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
-	
+
 	public void setText(String text) {
 		this.text = text;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
 
 	public void setTextSize(int size) {
 		textPaint.setTextSize(size);
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
 
 	public void setTextColor(int color) {
 		textPaint.setColor(color);
+		clearCache();
 		invalidate();
 	}
 
 	public void setTextMaxLines(int maxLines) {
 		textMaxLines = maxLines;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
 
 	public void setTitleSize(int size) {
 		titlePaint.setTextSize(size);
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
 
 	public void setTitleColor(int color) {
 		titlePaint.setColor(color);
+		clearCache();
 		invalidate();
 	}
-	
+
 	public void setTitleStyle(int style) {
-		if (style == 0) // normal
+		if (style == 0) { // normal
 			titlePaint.setTypeface(Typeface.DEFAULT);
-		else if (style == 1) // bold
+		} else if (style == 1) { // bold
 			titlePaint.setTypeface(Typeface.DEFAULT_BOLD);
-		else if (style == 2) // italic
+		} else if (style == 2) { // italic
 			// BUG: doesn't work
 			titlePaint.setTypeface(Typeface.create(Typeface.defaultFromStyle(Typeface.NORMAL), Typeface.ITALIC));
-		else if (style == 3) // bold+italic
+		} else if (style == 3) { // bold+italic
 			// BUG: doesn't work
 			titlePaint.setTypeface(Typeface.create(Typeface.defaultFromStyle(Typeface.ITALIC), Typeface.BOLD_ITALIC));
+		}
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
-	
+
 	public void setTextStyle(int style) {
-		if (style == 0) // normal
+		if (style == 0) { // normal
 			textPaint.setTypeface(Typeface.DEFAULT);
-		else if (style == 1) // bold
+		} else if (style == 1) { // bold
 			textPaint.setTypeface(Typeface.DEFAULT_BOLD);
-		else if (style == 2) // italic
+		} else if (style == 2) { // italic
 			// BUG: doesn't work
 			textPaint.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
-		else if (style == 3) // bold+italic
+		} else if (style == 3) { // bold+italic
 			// BUG: doesn't work
 			textPaint.setTypeface(Typeface.create(Typeface.defaultFromStyle(Typeface.ITALIC), Typeface.BOLD_ITALIC));
+		}
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
-	
+
+	@Override
 	public Object getTag() {
 		return tag;
 	}
 
+	@Override
 	public void setTag(Object tag) {
 		this.tag = tag;
 	}
 
 	public void setBitmap(int imgId) {
 		this.bitmap = BitmapFactory.decodeResource(getResources(), imgId);
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
-	
+
 	public void setBitmap(Bitmap bitmap) {
 		this.bitmap = bitmap;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
@@ -284,7 +311,6 @@ public class ImageTextWrapView extends View {
 				breakWidth(specSize);
 			}
 		}
-
 		return result;
 	}
 
@@ -305,9 +331,9 @@ public class ImageTextWrapView extends View {
 			int numTextLines = textBreaker.getLines().size();
 			float textLineHeight = -titlePaint.ascent() + textPaint.descent();
 			int textBlockHeight = (int) (numTextLines * textLineHeight);
-			
+
 			result = getPaddingTop() + titleBlockHeight + titleTextPadding + textBlockHeight + getPaddingBottom();
-			
+
 			if (imgSizeMode == 0) { // calculate height and width from title/text
 				imgHeightInPixel = 0;
 				if (numTitleLines < imgSizeInLines) {
@@ -331,22 +357,22 @@ public class ImageTextWrapView extends View {
 		}
 		return result;
 	}
-	
+
 	private int breakWidth(int availableWidth) {
 		float titleLineHeight = -titlePaint.ascent() + titlePaint.descent();
 		float textLineHeight = -textPaint.ascent() + textPaint.descent();
-		
+
 		if (imgSizeMode == 0 && (imgHeightInPixel == -1 || imgWidthInPixel == -1)) {
 			// We don't know the exact size of the image yet, so approximate it
 			imgHeightInPixel = (int) (titleLineHeight * imgSizeInLines);
 			imgWidthInPixel = imgHeightInPixel;
 		}
-		
+
 		int fullWidth = availableWidth - getPaddingLeft() - getPaddingRight();
 		int tabbedWidth = (int) (fullWidth - (imgWidthInPixel + imagePadding));
 
 		int imageHeightInTitleLines = (int) Math.ceil(imgHeightInPixel / titleLineHeight);
-		
+
 		int titleLines = 100;
 		int[] titleMaxWidths = new int[titleLines];
 		tabbedTitleLines = Math.min(titleLines, imageHeightInTitleLines);
@@ -354,46 +380,46 @@ public class ImageTextWrapView extends View {
 		Arrays.fill(titleMaxWidths, tabbedTitleLines, titleLines, fullWidth);
 		titleBreaker.setMaxWidths(titleMaxWidths);
 		titleBreaker.breakText(title, titlePaint);
-		
+
 		int textLinesToTab = 0;
-		float realTitleLinesHeight = titleBreaker.getLines().size() * titleLineHeight ;
+		float realTitleLinesHeight = titleBreaker.getLines().size() * titleLineHeight;
 		if ((realTitleLinesHeight + titleTextPadding) < imgHeightInPixel) {
 			float d = imgHeightInPixel - (realTitleLinesHeight + titleTextPadding);
 			textLinesToTab = (int) Math.ceil(d / textLineHeight);
 		}
-		
+
 		int[] textMaxWidths = new int[textMaxLines];
 		tabbedTextLines = Math.min(textLinesToTab, textMaxLines);
 		Arrays.fill(textMaxWidths, 0, tabbedTextLines, tabbedWidth);
 		Arrays.fill(textMaxWidths, tabbedTextLines, textMaxLines, fullWidth);
 		textBreaker.setMaxWidths(textMaxWidths);
 		textBreaker.breakText(text, textPaint);
-		
+
 		return availableWidth;
 	}
-	
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
+		
 		List<String> titleLines = titleBreaker.getLines();
 		List<String> textLines = textBreaker.getLines();
 
-		Rect dst = new Rect(getPaddingLeft(), getPaddingTop(), getPaddingLeft() + imgWidthInPixel, getPaddingTop() + imgHeightInPixel); 
+		Rect dst = new Rect(getPaddingLeft(), getPaddingTop(), getPaddingLeft() + imgWidthInPixel, getPaddingTop() + imgHeightInPixel);
 		croppedBitmap = BitmapCropper.centerCropBitmap(bitmap, imgWidthInPixel, imgHeightInPixel);
 		canvas.drawBitmap(croppedBitmap, null, dst, null);
-		
+
 		float x, y;
 		float textLineHeight = -textPaint.ascent() + textPaint.descent();
 		float titleLineHeight = -titlePaint.ascent() + titlePaint.descent();
-		
+
 		// Draw title
 		y = getPaddingTop() + (-titlePaint.ascent());
 		for (int i = 0; i < titleLines.size(); i++) {
 			x = getPaddingLeft();
-			if (i < tabbedTitleLines)
+			if (i < tabbedTitleLines) {
 				x += imgWidthInPixel + imagePadding;
-			
+			}
 			String s = titleLines.get(i);
 			canvas.drawText(s, x, y, titlePaint);
 			y += titleLineHeight;
@@ -401,14 +427,14 @@ public class ImageTextWrapView extends View {
 				break;
 			}
 		}
-		
+
 		// Draw text
 		y += titleTextPadding;
 		for (int i = 0; i < textLines.size(); i++) {
 			x = getPaddingLeft();
-			if (i < tabbedTextLines)
+			if (i < tabbedTextLines) {
 				x += imgWidthInPixel + imagePadding;
-			
+			}
 			String s = textLines.get(i);
 			canvas.drawText(s, x, y, textPaint);
 			y += textLineHeight;
@@ -416,7 +442,8 @@ public class ImageTextWrapView extends View {
 				break;
 			}
 		}
+		
+		//enable drawing cache, onDraw() won't be called again until invalidate() is invoked
+		setDrawingCacheEnabled(true);
 	}
-	
-	
 }

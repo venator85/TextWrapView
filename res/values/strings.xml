@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">TextWrapView</string>
-	<string name="title1">ImageTextWrapView, size of the image is 4 lines</string>
-	<string name="title2">ImageTextWrapView, size of the image is 55x55 dp</string>
+	<string name="title1">ImageTextWrapView, size of the image is 4 lines
+	</string>
+	<string name="title2">ImageTextWrapView, size of the image is 55x55 dp
+	</string>
+	<string name="title3">Lorem ipsum dolor sit amet, consectetur adipiscing
+		elit</string>
+	<string name="title4">Lorem ipsum</string>
 	<string name="text1">Lorem ipsum dolor sit amet, consectetur adipiscing
 		elit. Vivamus turpis libero, fringilla at ultrices ut, porttitor ut
 		tellus. Donec et mauris sed erat vulputate mollis. Praesent et purus
@@ -16,19 +21,27 @@
 		Nunc a ligula nisi, non vehicula enim. Donec ligula quam, laoreet
 		pulvinar fringilla non, viverra eu tellus. Suspendisse enim nisi,
 		congue at rutrum nec, porta in enim. Etiam a luctus urna.</string>
-	<string name="text2">TextWrapView, just 3 lines of wrapped and ellipsed text.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus turpis
-		libero, fringilla at ultrices ut, porttitor ut tellus.
-		Donec et mauris sed erat vulputate mollis. Praesent et purus
-		sem, non dapibus lectus. Nam sit amet elementum odio. Aenean sem
-		dolor, auctor vitae feugiat quis, faucibus quis diam. Aenean pharetra
-		vestibulum ante quis posuere. Donec semper sem at ante luctus
-		lobortis. Nulla tincidunt rhoncus ultrices. Praesent et mauris arcu.
-		Vestibulum a eros eu eros fringilla commodo. Quisque nec nibh purus,
-		molestie ultricies mauris. Nunc malesuada, dui sit amet suscipit
-		tincidunt, erat tortor egestas nisi, eget semper lorem sem eget lorem.
-		Nunc a ligula nisi, non vehicula enim. Donec ligula quam, laoreet
-		pulvinar fringilla non, viverra eu tellus. Suspendisse enim nisi,
-		congue at rutrum nec, porta in enim. Etiam a luctus urna.</string>
+	<string name="text2">TextWrapView, just 3 lines of wrapped and ellipsed
+		text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+		turpis libero, fringilla at ultrices ut, porttitor ut tellus. Donec et
+		mauris sed erat vulputate mollis. Praesent et purus sem, non dapibus
+		lectus. Nam sit amet elementum odio. Aenean sem dolor, auctor vitae
+		feugiat quis, faucibus quis diam. Aenean pharetra vestibulum ante quis
+		posuere. Donec semper sem at ante luctus lobortis. Nulla tincidunt
+		rhoncus ultrices. Praesent et mauris arcu. Vestibulum a eros eu eros
+		fringilla commodo. Quisque nec nibh purus, molestie ultricies mauris.
+		Nunc malesuada, dui sit amet suscipit tincidunt, erat tortor egestas
+		nisi, eget semper lorem sem eget lorem. Nunc a ligula nisi, non
+		vehicula enim. Donec ligula quam, laoreet pulvinar fringilla non,
+		viverra eu tellus. Suspendisse enim nisi, congue at rutrum nec, porta
+		in enim. Etiam a luctus urna.</string>
 	<string name="text3">TextWrapView, wrap_content</string>
+	<string name="text4">Sed ut perspiciatis unde omnis iste natus error sit
+		voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+		ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+		dicta sunt explicabo.</string>
+	<string name="text5">Neque porro quisquam est, qui dolorem ipsum quia
+		dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius
+		modi tempora incidunt ut labore et dolore magnam aliquam quaerat
+		voluptatem.</string>
 </resources>

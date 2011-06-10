@@ -59,6 +59,10 @@ public class TextWrapView extends View {
 		textPaint.setTextAlign(Align.LEFT);
 	}
 	
+	private void clearCache() {
+		setDrawingCacheEnabled(false);
+	}
+	
 	public TextWrapView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init();
@@ -92,29 +96,34 @@ public class TextWrapView extends View {
 
 	public void setText(String text) {
 		this.text = text;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
 
 	public void setTextSize(int size) {
 		textPaint.setTextSize(size);
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
 
 	public void setTextColor(int color) {
 		textPaint.setColor(color);
+		clearCache();
 		invalidate();
 	}
 
 	public void setMaxLines(int maxLines) {
 		this.maxLines = maxLines;
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
 	
 	public void setTypeface(Typeface typeface) {
 		textPaint.setTypeface(typeface);
+		clearCache();
 		requestLayout();
 		invalidate();
 	}
@@ -179,22 +188,24 @@ public class TextWrapView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
+		
 		List<String> lines = textBreaker.getLines();
 
 		float x = getPaddingLeft();
-		float y = getPaddingTop() + (-textPaint.ascent());
+		float y = getPaddingTop() - textPaint.ascent();
 		
 		float lineHeight = -textPaint.ascent() + textPaint.descent();
 		
 		for (int i = 0; i < lines.size(); i++) {
-			// Draw the current line.
-			String s = lines.get(i);
-			canvas.drawText(s, x, y, textPaint);
+			// Draw the current line
+			canvas.drawText(lines.get(i), x, y, textPaint);
 			y += lineHeight;
 			if (y > canvas.getHeight()) {
 				break;
 			}
 		}
+		
+		//enable drawing cache, onDraw() won't be called again until invalidate() is invoked
+		setDrawingCacheEnabled(true);
 	}
 }

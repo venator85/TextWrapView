@@ -11,7 +11,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 
 package cx.ath.venator.textwrapview;
 
@@ -35,11 +35,11 @@ public class TextBreaker {
 	public int[] getMaxWidths() {
 		return maxWidths;
 	}
-	
+
 	public int getMaxWidth() {
 		return maxWidth;
 	}
-	
+
 	public int getMaxLines() {
 		return maxLines;
 	}
@@ -55,7 +55,7 @@ public class TextBreaker {
 		this.maxLines = maxLines;
 		this.maxWidths = null;
 	}
-	
+
 	private int getLineWidth(int i) {
 		if (maxWidths != null)
 			return maxWidths[i];
@@ -65,7 +65,8 @@ public class TextBreaker {
 
 	public float breakText(String input, TextPaint tp) {
 		mLines = new ArrayList<String>();
-		if (input == null) return 0;
+		if (input == null)
+			return 0;
 		StringTokenizer st = new StringTokenizer(input, "\n");
 		float maxWidth = 0;
 		while (st.hasMoreTokens()) {
@@ -74,9 +75,9 @@ public class TextBreaker {
 				break;
 			String line = st.nextToken();
 			List<String> brokenLine = breakLine(line, tp);
-            for (String l : brokenLine) {
-                maxWidth = Math.max(tp.measureText(l), maxWidth);
-            }
+			for (String l : brokenLine) {
+				maxWidth = Math.max(tp.measureText(l), maxWidth);
+			}
 			mLines.addAll(brokenLine);
 		}
 		return maxWidth;
@@ -90,25 +91,20 @@ public class TextBreaker {
 		String line = "", DOTS = "...";
 
 		for (String word : input.split(" ")) {
-			// word fits line, append it
-			if (tp.measureText(line + " " + word + (lastLines ? DOTS : "")) <= getLineWidth(lines.size()))
+			if (tp.measureText(line + (!line.equals("") ? " " : "") + word + (lastLines ? DOTS : "")) <= getLineWidth(lines.size())) {
+				// word fits line, append it
 				line += (!line.equals("") ? " " : "") + word;
-
-			// word doesn't fit and it's the last line
-			else if (lastLines) {
+			} else if (lastLines) {
+				// word doesn't fit and it's the last line
 				line += DOTS;
 				break;
-			}
-
-			// word doesn't fit, use it in the next line
-			else if (tp.measureText(word) <= getLineWidth(lines.size())) {
+			} else if (tp.measureText(word) <= getLineWidth(lines.size())) {
+				// word doesn't fit, use it in the next line
 				lines.add(line);
 				lastLines = (lines.size() == maxLines - 1);
 				line = word;
-			}
-
-			// word doesn't fit but is too large for entire next line, hard word-wrap it
-			else {
+			} else {
+				// word doesn't fit but is too large for entire next line, hard word-wrap it
 				int j = word.length();
 				while (tp.measureText(line + " " + word.substring(0, j)) > getLineWidth(lines.size()))
 					j--;
@@ -117,28 +113,29 @@ public class TextBreaker {
 				lines.add(line);
 				lastLines = (lines.size() == maxLines - 1);
 
-				String resto = word.substring(j);
+				String rest = word.substring(j);
 
-				while (tp.measureText(resto + (lastLines ? DOTS : "")) > getLineWidth(lines.size())) {
-					j = resto.length();
-					while (tp.measureText(resto.substring(0, j) + (lastLines ? DOTS : "")) > getLineWidth(lines.size()))
+				while (tp.measureText(rest + (lastLines ? DOTS : "")) > getLineWidth(lines.size())) {
+					j = rest.length();
+					while (tp.measureText(rest.substring(0, j) + (lastLines ? DOTS : "")) > getLineWidth(lines.size())) {
 						j--;
+					}
 
 					if (lastLines) {
-						resto = resto.substring(0, j);
+						rest = rest.substring(0, j);
 						break;
 					} else {
-						lines.add(resto.substring(0, j));
+						lines.add(rest.substring(0, j));
 						lastLines = (lines.size() == maxLines - 1);
-						resto = resto.substring(j);
+						rest = rest.substring(j);
 					}
 				}
-				line = resto;
+				line = rest;
 			}
 		}
-
-		if (line.length() != 0)
+		if (line.length() != 0) {
 			lines.add(line);
+		}
 		return lines;
 	}
 
